@@ -1,0 +1,63 @@
+@startuml
+
+class GuiaTuristico{
+nombre
+apellido
+dni
+cuit
+domicilio
+telefono
+email
+ciudad
+pais
+}
+
+class ItemServicio{
+cantidadpersonas
+}
+
+class Servicio{
+fecha
+tipo
+titulo
+descripcion
+coordenadas
+precio
+}
+
+class Cliente{
+nombre
+apellido
+dni
+cuit
+domicilio
+telefono
+email
+ciudad
+pais
+}
+
+class Reserva{
+fecha
+importe
+}
+
+class Estado{
+condicion
+}
+
+class Pago{
+numerotarjeta
+importe
+fecha
+}
+
+
+Servicio "1" -- "1..*" Reserva
+Cliente "1" -- "1..*" Reserva
+Reserva "1" -- "1..*" Pago
+GuiaTuristico "1" -- "1...*" Servicio
+ItemServicio "1" -- "1" Servicio
+Reserva "1..*" -- "1" Estado 
+
+@enduml
