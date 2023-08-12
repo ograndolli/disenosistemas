@@ -1,0 +1,11 @@
+Requerimientos funcionales: 
+- El sistema debe permitir registrar un guía turístico.
+- El sistema debe permitir al guía turístico registrar nuevos servicios turísticos.
+- El sistema debe permitir registrar clientes.
+- El sistema debe permitir mostrar al público disponibilidad e información de los servicios.
+
+Requerimientos no funcionales:
+- El sistema debe validar los datos en AFIP cada vez que se registra un nuevo guía.
+- El sistema debe permitir pagos con tarjetas.
+- El sistema debe permitir cambiar el estado de los servicios.
+
