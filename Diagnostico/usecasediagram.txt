@@ -1,0 +1,32 @@
+@startuml
+
+left to right direction
+
+actor Guia
+actor Cliente 
+actor Afip
+actor Logistica
+
+
+package "Servicios turisticos"{
+ usecase "Registrar servicio turistico"
+ usecase "Registrar datos personales"
+ usecase "Registrar reserva"
+ usecase "Registrar pago"
+ usecase "Emitir listado mensual de insumos faltantes por servicio"
+ usecase "Emitir orden de compra de elementos para proveedor"
+ usecase "Verificar CUIT guia"
+}
+
+Guia --> "Registrar servicio turistico"
+"Registrar servicio turistico" "<<extend>>" <-- "Registrar datos personales"
+Cliente --> "Registrar reserva"
+"Registrar reserva" "<<extend>>" <-- "Registrar datos personales"
+Cliente --> "Registrar pago"
+Logistica --> "Emitir listado mensual de insumos faltantes por servicio"
+Logistica ---> "Emitir orden de compra de elementos para proveedor"
+Afip --> "Verificar CUIT guia"
+"Registrar servicio turistico" "<<include>>" ..>"Verificar CUIT guia"
+
+
+@enduml
