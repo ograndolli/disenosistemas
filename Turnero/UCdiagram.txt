@@ -1,0 +1,19 @@
+@startuml
+
+left to right direction
+
+actor Paciente
+actor Empleado
+
+
+package "Gestion de turnos"{
+ usecase "Generar turno"
+ usecase "Asignar siguiente turno"
+
+}
+
+Paciente --> "Generar turno"
+Empleado --> "Asignar siguiente turno"
+
+
+@enduml

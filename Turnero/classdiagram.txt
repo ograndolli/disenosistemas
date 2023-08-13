@@ -1,0 +1,28 @@
+@startuml
+
+class Employee{
+legajo
+nombre
+apellido
+dni
+}
+
+class Fila{
+hora
+fecha
+codigo
+}
+
+class Paciente{
+nombre
+apellido
+dni
+telefono
+email
+}
+
+
+Employee "1" -- "0..*" Fila
+Fila"0..*" -- "1" Paciente
+
+@enduml
