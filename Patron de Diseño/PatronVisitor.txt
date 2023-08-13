@@ -1,0 +1,160 @@
+    #Introduccion patrones
+
+Los patrones de diseño son soluciones habituales a problemas que ocurren con frecuencia en el diseño de software. 
+Son como planos prefabricados que se pueden personalizar para resolver un problema el código. 
+
+Los tipos de patrones son: Creacionales, estructurales y de comportamiento. 
+Este último trata con algoritmos y la asignación de responsabilidades entre objetos.
+
+    #Patron visitor 
+
+El patrón Visitor pertenece al tipo de patrón de comportamiento y es una forma de separar la estructura 
+de un objeto de las operaciones que se realizan sobre él.
+Esto quiere decir que en lugar de colocar métodos específicos en la clase del objeto, el patrón Visitor
+permite definir nuevas operaciones sin modificar las clases existentes.
+
+Funciona de esta manera: tienes una jerarquía de clases de objetos y una jerarquía de visitantes. 
+Los visitantes son clases que implementan métodos para operar en los objetos, 
+y estos métodos se pueden aplicar a diferentes tipos de objetos dentro de la jerarquía.
+
+En resumen, el patrón Visitor facilita agregar nuevas operaciones a una estructura de objetos sin modificar esas clases.
+
+    #Ejemplo
+
+Supongamos que tenemos un sistema de modelado 3D con diferentes tipos de elementos como esferas, cubos, cilindros 
+y queremos operar sobre ellos (como sacar el área superficial o el volumen).
+
+En lugar de agregar los métodos de cálculo directamente a las clases de cada elemento aplicamos el patrón Visitor.
+
+1. Se crea una interfaz "Visitor" con métodos para cada tipo de cálculo, como "calcularArea" y "calcularVolumen".
+2. Para cada clase de elemento (esfera, cubo, cilindro), se agrega un método "accept" que toma un objeto "Visitor" 
+como argumento y llama al método apropiado en el Visitor.
+3. Se crean diferentes clases de visitantes, cada una implementando los cálculos específicos. 
+Por ejemplo, "VisitorArea" y "VisitorVolumen".
+
+Ya contando con esto, cuando se quiera calcular el área o el volumen de un elemento, 
+se crea una instancia del visitante correspondiente y se la pasa al elemento usando el método "accept".
+El elemento invocará el método adecuado en el visitante, y este realizará el cálculo necesario.
+
+    #Ventajas y desventajas
+
+Este enfoque tiene la ventaja de que puedes agregar nuevos cálculos (nuevos visitantes) sin tocar las clases
+de los elementos existentes, manteniendo así la separación entre la estructura del objeto y 
+las operaciones que se realizan sobre él.
+
+Cuenta con principio de abierto/cerrado, esto quiere decir que se puede introducir un nuevo comportamiento 
+que puede funcionar con objetos de clases diferentes sin cambiar esas clases.
+
+Por otro lado, una de las desventajas es que se debe actualizar todos los visitantes cada vez que una clase 
+se añada o elimine de la jerarquía de elementos.
+
+
+    # Codigo del ejemplo 
+
+// Interfaz para los visitantes
+interface Visitor {
+    void visit(Sphere sphere);
+    void visit(Cube cube);
+    void visit(Cylinder cylinder);
+}
+
+// Clase base para las formas
+abstract class Shape {
+    abstract void accept(Visitor visitor);
+}
+
+// Clases de formas
+class Sphere extends Shape {
+    @Override
+    void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+class Cube extends Shape {
+    @Override
+    void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+class Cylinder extends Shape {
+    @Override
+    void accept(Visitor visitor) {
+        visitor.visit(this);
+    }
+}
+
+// Clase de visitante para el cálculo de áreas
+class VisitorArea implements Visitor {
+    double area;
+
+    @Override
+    public void visit(Sphere sphere) {
+        // Cálculos para el área de la esfera
+    }
+
+    @Override
+    public void visit(Cube cube) {
+        // Cálculos para el área del cubo
+    }
+
+    @Override
+    public void visit(Cylinder cylinder) {
+        // Cálculos para el área del cilindro
+    }
+}
+
+// Clase de visitante para el cálculo de volúmenes
+class VisitorVolume implements Visitor {
+    double volume;
+
+    @Override
+    public void visit(Sphere sphere) {
+        // Cálculos para el volumen de la esfera
+    }
+
+    @Override
+    public void visit(Cube cube) {
+        // Cálculos para el volumen del cubo
+    }
+
+    @Override
+    public void visit(Cylinder cylinder) {
+        // Cálculos para el volumen del cilindro
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Sphere sphere = new Sphere();
+        Cube cube = new Cube();
+        Cylinder cylinder = new Cylinder();
+
+        VisitorArea areaVisitor = new VisitorArea();
+        VisitorVolume volumeVisitor = new VisitorVolume();
+
+        sphere.accept(areaVisitor);
+        cube.accept(areaVisitor);
+        cylinder.accept(areaVisitor);
+
+        sphere.accept(volumeVisitor);
+        cube.accept(volumeVisitor);
+        cylinder.accept(volumeVisitor);
+    }
+}
+
+    #Especificaciones
+
+Shape es la clase base para todos los tipos de formas en el sistema 3D. 
+Tiene un método accept que permite a los visitantes visitar la forma.
+
+Sphere, Cube y Cylinder son subclases de Shape, cada una con sus propios métodos calculateArea y calculateVolume 
+para cálculos específicos.
+
+Visitor es la interfaz para los visitantes, con un método visit para cada tipo de forma.
+
+VisitorArea y VisitorVolume son clases de visitantes que implementan los métodos visit para cada tipo de forma 
+y realizan los cálculos necesarios.
+
+AreaVisitor es un visitante específico que calcula áreas para diferentes formas.
